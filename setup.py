@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name='pandly',
     version='0.0.3',
-    author='Mike Huls',
-    author_email='mike_huls@hotmail.com',
+    author='Louis Raverdy',
+    author_email='raverdy.louis@gmail.com',
     description='Testing installation of Package',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -17,5 +17,5 @@ setuptools.setup(
     },
     license='MIT',
     packages=['pandly'],
-    install_requires=['pandas'],
+    install_requires=['pandas', 'plotly'],
 )
