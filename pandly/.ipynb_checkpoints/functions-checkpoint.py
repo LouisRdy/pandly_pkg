@@ -1,5 +1,43 @@
 import pandas as pd
 import plotly.express as px
+
+
+# Calculate trend rate
+def trend_calculation(data, col_1, col_2, metric, round_to=1):
+    data_frame = pd.DataFrame(data.groupby(col_1)[col_2].agg([metric])).reset_index().rename(columns={metric: col_2})
+    
+    # List of col_2 values
+    count = data_frame[col_2].tolist()
+
+    # Preparing growth rate list that has to start from 0
+    trend = [0]
+
+    # Get growth rate
+    for i in range(1, len(count)):
+        trend.append(round((count[i] - count[i-1]) / count[i-1] * 100, round_to))
+        
+    # Result
+    data_frame['trend_percentage'] = trend
+    
+    # Text -> useful in chart
+    l = data_frame["trend_percentage"].astype(str).tolist()
+
+    text = []
+
+    for i in l:
+        if "-" not in i:
+            if i != "0":
+                text.append("+"+i)
+            else:
+                text.append(i)
+        else:
+            text.append(i)    
+    
+    data_frame['trend_percentage_text'] = text
+
+    return data_frame
+
+
     
     # Function that will return percentage and count
 def groupby_2(data, column_1, column_2, round_to=2):
