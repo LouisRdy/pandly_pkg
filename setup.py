@@ -17,5 +17,5 @@ setuptools.setup(
     },
     license='MIT',
     packages=['pandly'],
-    install_requires=['pandas', 'plotly'],
+    install_requires=['pandas', 'plotly', 'google-cloud-bigquery'],
 )

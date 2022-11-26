@@ -35,6 +35,17 @@ pdy.groupby_2(
     column_2="Nationality",
     round_to=4
 )
+
+# Output
+
+	Gender	Nationality	percentage	count
+0	Male	France	33.3333	1
+1	Male	Kabylia	66.6667	2
+2	Women	France	50.0000	1
+3	Women	Kabylia	50.0000	1
+
+
+
 ```
 
 ## Contributing
