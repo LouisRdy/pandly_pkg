@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.express as px
+from google.cloud import bigquery
 
 
 # Calculate trend rate
@@ -36,6 +37,23 @@ def trend_calculation(data, col_1, col_2, metric, round_to=1):
     data_frame['trend_percentage_text'] = text
 
     return data_frame
+
+
+# Load to Big Query
+def load_to_gbq(data, project_id, table, write_disposition, inset_sync_date=False):
+
+    # Formatting columns
+    data.columns = [i.replace(".", "_") for i in data.columns]
+    
+    if inset_sync_date == True
+        data["sync_date"] = datetime.strptime(datetime.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
+    
+   # Load data to BQ
+    print("Loading data....")
+    job_config = bigquery.LoadJobConfig(write_disposition=write_disposition) # Replace existing data
+    job = client.load_table_from_dataframe(data, f"{project_id}.{table}", job_config=job_config)
+    job.result()
+    print("...Loaded!")
 
 
     
