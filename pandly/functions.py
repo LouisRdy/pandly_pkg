@@ -40,12 +40,12 @@ def trend_calculation(data, col_1, col_2, metric, round_to=1):
 
 
 # Load to Big Query
-def load_to_gbq(data, project_id, table, write_disposition, inset_sync_date=False):
+def load_to_gbq(data, project_id, table, write_disposition, insert_sync_date=False):
 
     # Formatting columns
     data.columns = [i.replace(".", "_") for i in data.columns]
     
-    if inset_sync_date == True
+    if insert_sync_date == True:
         data["sync_date"] = datetime.strptime(datetime.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
     
    # Load data to BQ
