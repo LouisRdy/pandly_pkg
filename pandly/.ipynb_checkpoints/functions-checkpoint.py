@@ -94,7 +94,7 @@ days = [
 ]
 
 
-def vcounts(data, col, metric="count", show_nans=False, horizontal=False, show_plot=False, height=None, width=None, text=None):
+def vcounts(data, col, metric="count", show_nans=False, horizontal=False, show_plot=False, height=None, width=None, text=None, darkmode=False):
     
     dff = data
     
@@ -135,6 +135,11 @@ def vcounts(data, col, metric="count", show_nans=False, horizontal=False, show_p
         while not width:
             width = height
             
+    if darkmode == True:
+        template="plotly_dark"
+    else:
+        template=None
+            
     hovertext = ["<b>Count</b>: " + i for i in dff["count"].astype(str)]
 
     fig = px.bar(
@@ -151,6 +156,7 @@ def vcounts(data, col, metric="count", show_nans=False, horizontal=False, show_p
     )
 
     fig.update_layout(
+        template=template,
         title=f"{col.replace('_', ' ').capitalize()} value counts",
         title_x=.5,
         height=height,
