@@ -70,12 +70,12 @@ def groupby_2(data, column_1, column_2, round_to=2):
 
 def missing_value_counts(data, round_to=3):
     # retreive dataframe basic shape stats
-    data = {
-        'missing_val_count' : df.isna().sum(), # nan count
-        'missing_val_percentage' : (round(df.isna().sum()/len(df), round_to)*100), # nan percentage
+    dic = {
+        'missing_val_count' : data.isna().sum(), # nan count
+        'missing_val_percentage' : (round(data.isna().sum()/len(data), round_to)*100), # nan percentage
     }
     
-    data = pd.DataFrame(data)
+    data = pd.DataFrame(dic)
     
     return data
 
