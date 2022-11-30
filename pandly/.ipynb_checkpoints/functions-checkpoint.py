@@ -68,18 +68,89 @@ def groupby_2(data, column_1, column_2, round_to=2):
 
 
 
-def missing_value_counts(data, round_to=3):
+def missing_value_counts(data, round_to=3, show_plot=False, darkmode=True, height=None, width=None, horizontal=False):
     # retreive dataframe basic shape stats
     dic = {
         'missing_val_count' : data.isna().sum(), # nan count
         'missing_val_percentage' : (round(data.isna().sum()/len(data), round_to)*100), # nan percentage
     }
     
-    data = pd.DataFrame(dic)
+    data = pd.DataFrame(dic) \
+        .reset_index(names="column") \
+        .sort_values(by="missing_val_count", ascending=False)
     
+    display(data)
+
+    # Dark theme
+    if darkmode == True:
+        template = "plotly_dark"
+        hoverlabel=dict(
+            bgcolor="black",
+            font_size=12,
+            #font_family="Rockwell"
+        )
+             
+    else:
+        template = "plotly"
+        hoverlabel=None
+        
+    # Height and width    
+    if height:
+        while not width:
+            width = height
+            
+    # Orientation
+    if horizontal == False:
+        x="column"
+        y = "missing_val_count"
+        xaxis_title=None
+        yaxis_title="Count"
+        hovermode = "x unified"
+        
+    else:
+        data = data.sort_values(by="missing_val_count")
+        y="column"
+        x = "missing_val_count"
+        yaxis_title=None
+        xaxis_title="Count"
+        hovermode = "y unified"
+    
+    fig = px.bar(
+        data,
+        x=x,
+        y=y,
+        text="missing_val_percentage",
+        color_discrete_sequence=["#bfe3ab"],
+        hover_data={
+            "column": False
+        }
+    )
+    
+    fig.update_layout(
+        template=template,
+        title="Missing values per column",
+        title_x=.5,
+        height=height,
+        width=width,
+        xaxis_title=xaxis_title,
+        yaxis_title=yaxis_title,
+        hovermode=hovermode,
+        hoverlabel=hoverlabel
+        
+    )
+    
+    fig.update_traces(
+        texttemplate = "%{text}%",
+        
+    )
+    
+    if show_plot == True:
+        fig.show()
+        
     return data
 
-
+#######################################
+#######################################
 
 months = [
     "January", "February", "March",
