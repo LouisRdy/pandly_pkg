@@ -77,9 +77,8 @@ def missing_value_counts(data, round_to=3, show_plot=False, darkmode=True, heigh
     
     data = pd.DataFrame(dic) \
         .reset_index(names="column") \
-        .sort_values(by="missing_val_count", ascending=False)
-    
-    display(data)
+        .sort_values(by="missing_val_count", ascending=False) \
+        .reset_index(drop=True)
 
     # Dark theme
     if darkmode == True:
