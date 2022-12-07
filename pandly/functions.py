@@ -1,6 +1,34 @@
 import pandas as pd
 import plotly.express as px
 from google.cloud import bigquery
+from datetime import datetime
+
+def data_shape(dataframe):
+
+    # Store values in a dictionnary
+    dtypes = {
+        "column": [],
+        "missing_values": None,
+        "dtype": []
+    }
+
+    # Retreive col names, missing values and dtypes
+    for i in dataframe.columns:
+        dtypes["column"].append(i) # Column names
+        dtypes["missing_values"] = dataframe.isna().sum().values # Missing values
+        dtypes["dtype"].append(dataframe[i].dtype) # Dtype
+
+    # Convert dictionnary to pandas dataframe
+    data = pd.DataFrame(dtypes)
+
+    # Data shape
+    print(f"Number of rows: {dataframe.shape[0]}")
+    print(f"Number of columns: {dataframe.shape[1]}")
+
+    # Display first 5 rows of dataframe
+    #dataframe.head()
+    data["dtype"] = data["dtype"].astype(str)
+    return data
 
 
 # Calculate trend rate
